@@ -1,0 +1,222 @@
+<!-- ==================================================================== 
+                                HEADER
+===================================================================== -->
+<header>
+    <mat-toolbar color="primary">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>My App</span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+            <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+            <mat-icon>share</mat-icon>
+        </button>
+    </mat-toolbar>
+</header>
+
+<!-- ==================================================================== 
+                                TABLE
+===================================================================== -->
+
+<div class="container-fluid mt-5">
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+
+             <!-- id COLUMN -->
+             <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element , let i = index"> {{i++1}} </td>
+            </ng-container>
+
+            <!-- COMPANYNAME COLUMN -->
+            <ng-container matColumnDef="companyName">
+                <th mat-header-cell *matHeaderCellDef> Company-name </th>
+                <td mat-cell *matCellDef="let element"> {{element.companyname}} </td>
+            </ng-container>
+
+            <!-- FIRS-TNAME COLUMN -->
+            <ng-container matColumnDef="firstname">
+                <th mat-header-cell *matHeaderCellDef> First-name </th>
+                <td mat-cell *matCellDef="let element "> {{element.fname}} </td>
+            </ng-container>
+
+            <!-- LAST-NAME COLUMN -->
+            <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef> Last-name </th>
+                <td mat-cell *matCellDef="let element"> {{element.lname}} </td>
+            </ng-container>
+
+            <!-- EMAIL COLUMN -->
+            <ng-container matColumnDef="Email">
+                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+
+            <!-- MOBILE-NO COLUMN -->
+            <ng-container matColumnDef="mobileNo">
+                <th mat-header-cell *matHeaderCellDef> Mobile-no </th>
+                <td mat-cell *matCellDef="let element"> {{element.mobileno}} </td>
+            </ng-container>
+
+            <!-- SALARY COLUMN -->
+            <ng-container matColumnDef="salary">
+                <th mat-header-cell *matHeaderCellDef> Salary </th>
+                <td mat-cell *matCellDef="let element"> {{element.salary}} </td>
+            </ng-container>
+
+            <!-- CITY COLUMN -->
+            <ng-container matColumnDef="city">
+                <th mat-header-cell *matHeaderCellDef> City </th>
+                <td mat-cell *matCellDef="let element"> {{element.address.city}} </td>
+            </ng-container>
+
+            <!-- BLOCK-NO COLUMN -->
+            <ng-container matColumnDef="Blockno">
+                <th mat-header-cell *matHeaderCellDef> Block-no </th>
+                <td mat-cell *matCellDef="let element"> {{element.address.blockno}} </td>
+            </ng-container>
+
+            <!-- AADHAAR-CARD-NO COLUMN -->
+            <ng-container matColumnDef="Aadhaarno">
+                <th mat-header-cell *matHeaderCellDef> Aadhaar-no </th>
+                <td mat-cell *matCellDef="let element"> {{element.personalDetails.aadhaarno}} </td>
+            </ng-container>
+
+            <!-- PAN-CARD-NO COLUMN -->
+            <ng-container matColumnDef="PanNo">
+                <th mat-header-cell *matHeaderCellDef> Pancard-no </th>
+                <td mat-cell *matCellDef="let element"> {{element.personalDetails.panno}} </td>
+            </ng-container>
+
+            <!-- PASSBOOK-NO COLUMN -->
+            <ng-container matColumnDef="AccountNO">
+                <th mat-header-cell *matHeaderCellDef> Passbook-no </th>
+                <td mat-cell *matCellDef="let element"> {{element.personalDetails.passbookno}} </td>
+            </ng-container>
+
+
+            <!-- ACTION COLUMN -->
+            <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element">
+                    <div>
+                        <button type="button" class="btn btn-success Edit text-white m-1" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal" (click)="fillData(element)">Edit</button>
+                        <button  type="button" class="btn btn-danger Delete text-white" (click)="deleteData(element)">Delete</button>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator> -->
+    </div>
+</div>
+
+<!-- ==================================================================== 
+                                ADD DATA
+===================================================================== -->
+
+<!-- Button trigger modal -->
+<div class="example-button-container">
+    <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="add-btn"
+        data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
+
+<!-- ==================================================================== 
+                                ADD MODEL
+===================================================================== -->
+
+<!-- Modal -->
+<form [formGroup]="myForm">
+    <div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header d-block mt-3">
+                    <!-- input Box -->
+                    <div class="mb-3 w-100">
+                        <input type="email" class="form-control" name="cm" placeholder="Compny Name"
+                            formControlName="companyname">
+                    </div>
+                    <div class="container">
+                        <div class="row d-flex">
+                            <div class="mb-3 w-50">
+                                <input type="text" class="form-control" name="fn" placeholder="First Name"
+                                    formControlName="fname">
+                            </div>
+                            <div class="mb-3 w-50">
+                                <input type="text" class="form-control" name="ln" placeholder="Last Name"
+                                    formControlName="lname">
+                            </div>
+                        </div>
+
+
+                        <div class="row d-flex">
+                            <div class="mb-3 w-50">
+                                <input type="text" class="form-control" name="em" placeholder="Email"
+                                    formControlName="email">
+                            </div>
+                            <div class="mb-3 w-50">
+                                <input type="text" class="form-control" name="mo" placeholder="Mobile No"
+                                    formControlName="mobileno">
+                            </div>
+                        </div>
+
+
+                        <div class="row d-flex">
+                            <div class=" col-12 mb-3 w-100">
+                                <input type="text" class="form-control" name="sl" placeholder="Salary"
+                                    formControlName="salary">
+                            </div>
+
+                        </div>
+
+
+                        <div class="row d-flex" formGroupName="address">
+                            <div class="col-6 mb-3 ">
+                                <input type="text" class="form-control" name="city" placeholder="City"
+                                    formControlName="city">
+                            </div>
+                            <div class="col-6 mb-3 ">
+                                <input type="text" class="form-control" name="bn" placeholder="Block No"
+                                    formControlName="blockno">
+                            </div>
+
+                        </div>
+
+
+                        <div class="row d-flex" formGroupName="personalDetails">
+                            <div class="col-4 mb-3 ">
+                                <input type="text" class="form-control" name="adha" placeholder="Addhar No"
+                                    formControlName="aadhaarno">
+                            </div>
+                            <div class="col-4 mb-3 ">
+                                <input type="text" class="form-control" name="pn" placeholder="Pan No"
+                                    formControlName="panno">
+                            </div>
+                            <div class="col-4 mb-3 ">
+                                <input type="text" class="form-control" name="pbn" placeholder="Account No"
+                                    formControlName="passbookno">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" (click)="togglBtn ? addData() : updateData() ">{{ togglBtn ? 'Add' : 'Update' }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

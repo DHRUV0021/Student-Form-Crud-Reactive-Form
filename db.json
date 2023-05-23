@@ -1,0 +1,22 @@
+{
+  "Student": [
+    {
+      "id": 1,
+      "companyname": "ytrty",
+      "fname": "rtyrty",
+      "lname": "ertyrtye",
+      "email": "eryert",
+      "mobileno": "erty",
+      "address": {
+        "city": "yrtyzxccccz",
+        "blockno": "rtyerty"
+      },
+      "salary": "yertyert",
+      "personalDetails": {
+        "aadhaarno": "rtyt",
+        "panno": "ertyrey",
+        "passbookno": "yertyertyert"
+      }
+    }
+  ]
+}

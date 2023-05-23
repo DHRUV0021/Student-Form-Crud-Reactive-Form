@@ -1,0 +1,44 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+
+table {
+  width: 100%;
+}
+
+.add-btn {
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+  margin: 50px;
+}
+
+.form-control {
+  padding: 15px;
+  border: none;
+  border-bottom: 1px solid rgb(171, 171, 171);
+  background-color: rgba(216, 216, 216, 0.249);
+}
+
+
+.Edit{
+  color: rgba(5, 56, 9, 0.993);
+  font-size: 15px;
+  margin-left: 10px;
+  
+}
+
+.Edit:hover {
+  color: rgba(21, 82, 21, 0.836);
+}
+
+.Delete {
+  color: rgb(255, 0, 0);
+  font-size: 15px;
+
+}
+
+.Delete:hover {
+  color: rgb(201, 101, 101);
+}
