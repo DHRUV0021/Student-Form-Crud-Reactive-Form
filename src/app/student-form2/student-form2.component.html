@@ -23,7 +23,7 @@
 
 <div class="container-fluid mt-5">
     <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource">
+        <table mat-table [dataSource]="dataSource" >
 
              <!-- id COLUMN -->
              <ng-container matColumnDef="position">
@@ -40,7 +40,7 @@
             <!-- FIRS-TNAME COLUMN -->
             <ng-container matColumnDef="firstname">
                 <th mat-header-cell *matHeaderCellDef> First-name </th>
-                <td mat-cell *matCellDef="let element "> {{element.fname}} </td>
+                <td mat-cell *matCellDef="let element" > {{element.fname}} </td>
             </ng-container>
 
             <!-- LAST-NAME COLUMN -->
@@ -91,9 +91,9 @@
                 <td mat-cell *matCellDef="let element"> {{element.personalDetails.panno}} </td>
             </ng-container>
 
-            <!-- PASSBOOK-NO COLUMN -->
-            <ng-container matColumnDef="AccountNO">
-                <th mat-header-cell *matHeaderCellDef> Passbook-no </th>
+            <!-- ACCount-NO COLUMN -->
+            <ng-container matColumnDef="AccountNo">
+                <th mat-header-cell *matHeaderCellDef> Account-no </th>
                 <td mat-cell *matCellDef="let element"> {{element.personalDetails.passbookno}} </td>
             </ng-container>
 
@@ -113,11 +113,9 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-
-        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                   showFirstLastButtons
-                   aria-label="Select page of periodic elements">
-    </mat-paginator> -->
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" (click)="pagenations()" showFirstLastButtons
+        aria-label="Select page of periodic elements">
+    </mat-paginator>
     </div>
 </div>
 
@@ -128,8 +126,8 @@
 <!-- Button trigger modal -->
 <div class="example-button-container">
     <button mat-fab color="primary" aria-label="Example icon button with a delete icon" class="add-btn"
-        data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <mat-icon>add</mat-icon>
+        data-bs-toggle="modal" data-bs-target="#exampleModal" >
+        <mat-icon click>add</mat-icon>
     </button>
 </div>
 
@@ -138,7 +136,7 @@
 ===================================================================== -->
 
 <!-- Modal -->
-<form [formGroup]="myForm">
+<form [formGroup]="myForm" >
     <div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -146,7 +144,7 @@
                     <!-- input Box -->
                     <div class="mb-3 w-100">
                         <input type="email" class="form-control" name="cm" placeholder="Compny Name"
-                            formControlName="companyname">
+                            formControlName="companyname" >
                     </div>
                     <div class="container">
                         <div class="row d-flex">
@@ -212,8 +210,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" (click)="togglBtn ? addData() : updateData() ">{{ togglBtn ? 'Add' : 'Update' }}</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="dismissDetail()">Close</button>
+                        <button type="button" class="btn btn-primary" [disabled]="!myForm.valid" (click)="togglBtn ? addData() : updateData()">{{ togglBtn ? 'Add' : 'Update' }}</button>
                     </div>
                 </div>
             </div>

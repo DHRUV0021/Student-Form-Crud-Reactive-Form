@@ -2,20 +2,38 @@
   "Student": [
     {
       "id": 1,
-      "companyname": "ytrty",
-      "fname": "rtyrty",
-      "lname": "ertyrtye",
-      "email": "eryert",
-      "mobileno": "erty",
+      "companyname": "Gbase",
+      "fname": "dhruv",
+      "lname": "Gorasiya",
+      "email": "gorasiyadhruv@gmail.com",
+      "mobileno": "7046934474",
       "address": {
-        "city": "yrtyzxccccz",
-        "blockno": "rtyerty"
+        "city": "jnd",
+        "blockno": "1"
       },
-      "salary": "yertyert",
+      "salary": "0000",
       "personalDetails": {
-        "aadhaarno": "rtyt",
-        "panno": "ertyrey",
-        "passbookno": "yertyertyert"
+        "aadhaarno": "123456789123",
+        "panno": "12345678ss",
+        "passbookno": "12345678"
+      }
+    },
+    {
+      "id": 2,
+      "companyname": "gfg",
+      "fname": "jkljkl",
+      "lname": "sdf",
+      "email": "gorasiyadhruv@gmail.com",
+      "mobileno": "7046934474",
+      "address": {
+        "city": "vcxv",
+        "blockno": "3"
+      },
+      "salary": "5566",
+      "personalDetails": {
+        "aadhaarno": "123456789123",
+        "panno": "ttyt55655j",
+        "passbookno": "12345678"
       }
     }
   ]

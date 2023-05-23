@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { CrudService, Data } from '../crud.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-student-form2',
@@ -10,15 +11,13 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class StudentForm2Component {
 
-  displayedColumns: string[] = ['position', 'companyName', 'firstname', 'lastName', 'Email', 'mobileNo', 'salary', 'city', 'Blockno', 'Aadhaarno', 'PanNo', 'AccountNO', 'Action'];
+
+  displayedColumns: string[] = ['position', 'companyName', 'firstname', 'lastName', 'Email', 'mobileNo', 'salary', 'city', 'Blockno', 'Aadhaarno', 'PanNo', 'AccountNo', 'Action'];
   dataSource = new MatTableDataSource<any>;
-  paginator: any;
+  cleardData = false;
   myForm: FormGroup;
-allData:Array<Data>= new Array<Data>();
-togglBtn:boolean =true;
-
-
-
+  allData: Array<Data> = new Array<Data>();
+  togglBtn: boolean = true;
 
   constructor(private _crud: CrudService) { }
 
@@ -27,108 +26,111 @@ togglBtn:boolean =true;
     this.getData();
   }
 
-  // @ViewChild(MatPaginator) paginator: MatPaginator;
-  // ngAfterViewInit() {
-  //   this.dataSource.paginator = this.paginator;
-  // }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
+
+
+
+  //=================REACTIVE  METHOD
   ReactiveForm() {
     this.myForm = new FormGroup({
-      id: new FormControl(''),
-      companyname: new FormControl(''),
-      fname: new FormControl(''),
-      lname: new FormControl(''),
-      email: new FormControl(''),
-      mobileno: new FormControl(''),
+      id: new FormControl(null),
+      companyname: new FormControl('', Validators.required),
+      fname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(10), Validators.pattern("^[a-zA-Z]+$")]),
+      lname: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(10), Validators.pattern("^[a-zA-Z]+$")]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      mobileno: new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
       address: new FormGroup({
-        city: new FormControl(''),
-        blockno: new FormControl('')
+        city: new FormControl('', [Validators.required]),
+        blockno: new FormControl('', [Validators.required])
       }),
-      salary: new FormControl(''),
+      salary: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(8)]),
       personalDetails: new FormGroup({
-        aadhaarno: new FormControl(''),
-        panno: new FormControl(''),
-        passbookno: new FormControl('')
+        aadhaarno: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(12), Validators.maxLength(12)]),
+        panno: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+        passbookno: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(8), Validators.maxLength(16)])
       })
     });
   }
-  
-  getData(){
+
+  //=================GET DATA METHOD
+  getData() {
     this._crud.getItem().subscribe({
-      next:(res)=>{
-        this.allData =res;
+      next: (res) => {
+        this.allData = res;
         this.dataSource = new MatTableDataSource<Data>(this.allData);
+        this.dataSource.paginator = this.paginator;
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err);
       }
     })
   }
 
-
-  addData(){
+  //=================ADD DATA METHOD
+  addData() {
     this._crud.postItem(this.myForm.value).subscribe({
-      next:(res)=>{
+      next: (res) => {
         this.ReactiveForm();
         this.getData();
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err);
       }
     })
   }
 
-  fillData(data){
-    this.togglBtn= false;
+  //=================EDIT DATA METHOD
+  fillData(data) {
+    this.togglBtn = false;
     this.myForm.patchValue(data);
-
   }
 
-  updateData(){
+  updateData() {
     this._crud.editItem(this.myForm.value).subscribe({
-      next:(res)=>{
-        this.togglBtn= true;
+      next: (res) => {
+        this.togglBtn = true;
         this.ReactiveForm();
         this.getData();
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err);
       }
     })
   }
 
-
-  deleteData(data){
+  //=================DELETE DATA METHOD
+  deleteData(data) {
     this._crud.deleteItem(data).subscribe({
-      next:(res)=>{
+      next: (res) => {
         this.ReactiveForm();
         this.getData();
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err);
       }
     })
   }
+
+  //=================MODEL DATA CLEAR METHOD
+  dismissDetail() {
+    // Update & Add Toggle Button 
+    if (this.togglBtn) {
+      this.togglBtn = false;
+    }
+    else {
+      this.togglBtn = true;
+    }
+
+    this.ReactiveForm();
+    this.getData();
+  }
+
+  //=================PAGE METHOD
+  pagenations() {
+    this.dataSource.paginator = this.paginator;
+  }
 }
 
 
-
-
-
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-];
 
