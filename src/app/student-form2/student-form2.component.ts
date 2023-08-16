@@ -116,12 +116,11 @@ export class StudentForm2Component {
   dismissDetail() {
     // Update & Add Toggle Button 
     if (this.togglBtn) {
-      this.togglBtn = false;
-    }
-    else {
       this.togglBtn = true;
     }
-
+    else {
+      this.togglBtn = false;
+    }
     this.ReactiveForm();
     this.getData();
   }
