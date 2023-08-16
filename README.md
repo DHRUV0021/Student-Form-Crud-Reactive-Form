@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.5.
 
-⋙ this picture is Student Form - template-Driven example
+⋙ this picture is Student Form - Reactive-Form example
 
 ![image](https://github.com/DHRUV0021/studentCrud-Reactive-Form/assets/88469525/3a7dd1c7-8a1e-40fe-b46e-2c66b24cd938)
 
